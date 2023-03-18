@@ -1,6 +1,6 @@
 use std::env;
 use std::process;
-use discount_calculation_module::Config;
+use discount_calculation_module::types::Config;
 use discount_calculation_module::run;
 
 fn main() {

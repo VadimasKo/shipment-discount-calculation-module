@@ -1,63 +1,12 @@
 use chrono::{NaiveDate, Datelike};
-use strum_macros::{EnumIter, EnumString};
 use std::str::FromStr;
 use std::error::Error;
+use crate::types::{ShipmentSize, Shipment, Provider};
 
 
-#[derive(Debug, PartialEq, EnumString, Clone)]
-pub enum ShipmentSize {
-  L,
-  M,
-  S,
-}
-
-#[derive(EnumString, Debug, Clone, EnumIter, Copy)]
-pub enum Provider {
-  MR,
-  LP,
-  
-}
-
-impl Provider {
-  pub fn get_price(&self, size: &ShipmentSize) -> f32 {
-    match self {
-        Provider::LP => {
-          match size {
-            ShipmentSize::L => 6.90,
-            ShipmentSize::M => 4.90,
-            ShipmentSize::S => 1.50,
-        }
-        },
-        Provider::MR => {
-          match size {
-            ShipmentSize::L => 4.0,
-            ShipmentSize::M => 3.0,
-            ShipmentSize::S => 2.0,
-        }
-        },
-    }
-  }
-}
-
-
-#[derive(Debug, Clone)]
-pub struct Shipment {
-  pub date: NaiveDate,
-  pub size: ShipmentSize,
-  pub provider: Provider
-}
-
-impl Shipment {
-  pub fn get_price(&self) -> f32 {
-    self.provider.get_price(&self.size)
-  }
-}
-
-// Expected line format:
-// 2015-02-01 S MR
+// Expected line format: 2015-02-01 S MR
 pub fn string_to_shipment(input: &str) -> Result<Shipment,  Box<dyn Error>>  {
   let values: Vec<&str> = input.split_whitespace().collect(); 
-  // if values.len() != 3 { return Error("Invalid input string")}
 
   let date = NaiveDate::from_str(values[0])?;
   let size = ShipmentSize::from_str(values[1])?;

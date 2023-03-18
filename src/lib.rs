@@ -1,23 +1,13 @@
 mod shipment;
+pub mod types;
 use price::{print_month_receipt};
 use shipment::*;
+use types::{Shipment, Config};
 use std::error::Error;
 use std::{fs, vec};
-
 mod price;
 
-pub struct Config {
-  pub file_path: String,
-}
 
-impl Config {
-  pub fn build(args: &[String]) -> Result<Config, &'static str> {
-    if args.len() < 2 { return Err("Please provide file name") }
-    let file_path = args[1].clone();
-
-    Ok(Config { file_path })
-  }
-}
 
 pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
   let file_content = fs::read_to_string(config.file_path)?;
