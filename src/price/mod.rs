@@ -22,7 +22,7 @@ pub fn get_month_receipt(month_shipments: &Vec<Shipment>) -> Vec<String> {
 
     total_discount += discount;
 
-    monthly_receipt.push(format!("{:?} {:?} {:?} {} {}",
+    monthly_receipt.push(format!("{} {} {} {:.2} {:.3}",
       shipment.date,
       shipment.size,
       shipment.provider,

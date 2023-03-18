@@ -8,7 +8,6 @@ use std::{fs, vec};
 mod price;
 
 
-
 pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
   let file_content = fs::read_to_string(config.file_path)?;
   let mut ignored_lines: Vec<(usize, String)> = vec![];
@@ -24,6 +23,7 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
   let shipments_by_month = group_by_month(&shipments);
 
   let mut final_receipt: Vec<String> = vec![];
+
   for month_shipments in shipments_by_month {
     let monthly_receipt = get_month_receipt(&month_shipments);
     final_receipt = [final_receipt, monthly_receipt].concat();
@@ -39,4 +39,3 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
 
   Ok(())
 }
-

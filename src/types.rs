@@ -1,14 +1,14 @@
 use chrono::{NaiveDate };
-use strum_macros::{ EnumString, EnumIter};
+use strum_macros::{ EnumString, EnumIter, Display};
 
-#[derive(Debug, PartialEq, EnumString, Clone)]
+#[derive(PartialEq, EnumString, Clone, Display)]
 pub enum ShipmentSize {
   L,
   M,
   S,
 }
 
-#[derive(Debug, PartialEq, EnumString, Clone, EnumIter)]
+#[derive(Debug, EnumString, Clone, EnumIter, Display)]
 pub enum Provider {
   MR,
   LP,
@@ -35,7 +35,7 @@ impl Provider {
   }
 }
 
-#[derive(Debug, Clone)]
+#[derive(Clone)]
 pub struct Shipment {
   pub date: NaiveDate,
   pub size: ShipmentSize,
