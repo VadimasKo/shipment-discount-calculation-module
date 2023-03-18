@@ -1,14 +1,14 @@
 use chrono::{NaiveDate };
 use strum_macros::{ EnumString, EnumIter, Display};
 
-#[derive(PartialEq, EnumString, Clone, Display)]
+#[derive(PartialEq, EnumString, Clone, Display, Debug)]
 pub enum ShipmentSize {
   L,
   M,
   S,
 }
 
-#[derive(Debug, EnumString, Clone, EnumIter, Display)]
+#[derive(Debug, PartialEq, EnumString, Clone, EnumIter, Display)]
 pub enum Provider {
   MR,
   LP,
@@ -35,7 +35,7 @@ impl Provider {
   }
 }
 
-#[derive(Clone)]
+#[derive(Clone, PartialEq, Debug)]
 pub struct Shipment {
   pub date: NaiveDate,
   pub size: ShipmentSize,
@@ -54,8 +54,11 @@ pub struct Config {
 
 impl Config {
   pub fn build(args: &[String]) -> Result<Config, &'static str> {
-    if args.len() < 2 { return Err("Please provide file name") }
-    let file_path = args[1].clone();
+    let file_path: String;
+    
+    if args.len() < 2 { 
+      file_path = "input.txt".to_owned() 
+    } else  { file_path = args[1].clone(); }
 
     Ok(Config { file_path })
   }
