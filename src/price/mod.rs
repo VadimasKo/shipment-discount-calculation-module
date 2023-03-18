@@ -1,6 +1,7 @@
 use strum::IntoEnumIterator;
 use crate::types::{ShipmentSize, Provider, Shipment};
 
+
 pub fn get_month_receipt(month_shipments: &Vec<Shipment>) -> Vec<String> {
   let mut monthly_receipt: Vec<String> = vec![];
   let mut total_discount:f32 = 0.0;
@@ -11,6 +12,7 @@ pub fn get_month_receipt(month_shipments: &Vec<Shipment>) -> Vec<String> {
     let mut price: f32;
     let discount: f32;
 
+    // BUG in example or as it should be?
     if large_counter == 4 && shipment.size == ShipmentSize::L {
       price = shipment.get_price();
       discount = get_max_discount(price, total_discount);

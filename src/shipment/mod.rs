@@ -1,6 +1,6 @@
-use chrono::{NaiveDate, Datelike};
 use std::str::FromStr;
 use std::error::Error;
+use chrono::{NaiveDate, Datelike};
 use crate::types::{ShipmentSize, Shipment, Provider};
 
 

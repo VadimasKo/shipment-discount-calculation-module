@@ -1,11 +1,12 @@
-mod shipment;
 pub mod types;
-use price::{get_month_receipt};
-use shipment::*;
-use types::{Shipment, Config};
+mod shipment;
+mod price;
+
 use std::error::Error;
 use std::{fs, vec};
-mod price;
+use price::get_month_receipt;
+use shipment::group_by_month;
+use types::{Shipment, Config};
 
 
 pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
