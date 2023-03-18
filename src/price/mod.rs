@@ -8,12 +8,14 @@ pub fn get_month_receipt(month_shipments: &Vec<Shipment>) -> Vec<String> {
   let mut large_counter: i16 = 0;
 
   for shipment in month_shipments {
-    if shipment.size == ShipmentSize::L { large_counter += 1 }
+    if shipment.size == ShipmentSize::L && shipment.provider == Provider::LP {
+      large_counter += 1
+    }
+
     let mut price: f32;
     let discount: f32;
 
-    // BUG in example or as it should be?
-    if large_counter == 4 && shipment.size == ShipmentSize::L {
+    if large_counter == 3 && shipment.size == ShipmentSize::L {
       price = shipment.get_price();
       discount = get_max_discount(price, total_discount);
       price -= discount;
