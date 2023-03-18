@@ -60,3 +60,34 @@ fn get_max_discount(discount: f32, total_discount: f32) -> f32 {
   }
   return discount;
 }
+
+//======== TESTS ========//
+#[cfg(test)]
+mod tests {
+  use crate::{ types::Shipment, price::{calculate_price, get_month_receipt}};
+  use chrono::{NaiveDate};
+
+  #[test]
+  fn test_calculate_price() {
+    let shipment = Shipment{
+      date: NaiveDate::from_ymd_opt(2015, 2, 1).unwrap(),
+      size: crate::types::ShipmentSize::S,
+      provider: crate::types::Provider::MR
+    };
+    
+    let answer:(f32, f32) = (1.50, 0.50);
+    let result = calculate_price(&shipment, 0.0);
+
+    println!("{} {}",answer.0, result.0);
+    assert_eq!(result, answer);
+  }
+  
+  #[test]
+  fn test_month_receipt() {
+    let input: Vec<Shipment> = vec![];
+
+    let result = get_month_receipt(&input);
+    let answer: Vec<String> = vec![];
+    assert_eq!(result, answer);
+  }
+}

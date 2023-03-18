@@ -37,3 +37,30 @@ pub fn group_by_month(shipments: &Vec<Shipment>) -> Vec<Vec<Shipment>> {
 
   return shipments_by_month;
 }
+
+//======== TESTS ========//
+#[cfg(test)]
+mod tests {
+  use crate::{shipment::string_to_shipment, types::Shipment};
+  use chrono::{NaiveDate};
+
+  #[test]
+  fn test_string_to_shipment() {
+    let answer = Shipment{
+      date: NaiveDate::from_ymd_opt(2015, 2, 1).unwrap(),
+      size: crate::types::ShipmentSize::S,
+      provider: crate::types::Provider::MR
+    };
+    
+    let result = string_to_shipment("2015-02-01 S MR").unwrap();
+  
+    assert_eq!(result, answer);
+  }
+  
+  
+  #[test]
+  #[should_panic]
+  fn test_fail_string_to_shipment() {
+    string_to_shipment("2015-02-01 SR MR").unwrap();
+  }
+}
