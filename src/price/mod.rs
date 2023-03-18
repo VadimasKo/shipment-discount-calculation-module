@@ -1,7 +1,8 @@
 use strum::IntoEnumIterator;
 use crate::types::{ShipmentSize, Provider, Shipment};
 
-pub fn print_month_receipt(month_shipments: &Vec<Shipment>) {
+pub fn get_month_receipt(month_shipments: &Vec<Shipment>) -> Vec<String> {
+  let mut monthly_receipt: Vec<String> = vec![];
   let mut total_discount:f32 = 0.0;
   let mut large_counter: i16 = 0;
 
@@ -21,14 +22,16 @@ pub fn print_month_receipt(month_shipments: &Vec<Shipment>) {
 
     total_discount += discount;
 
-    println!("{:?} {:?} {:?} {} {}",
+    monthly_receipt.push(format!("{:?} {:?} {:?} {} {}",
       shipment.date,
       shipment.size,
       shipment.provider,
       price,
       if discount > 0.0 { discount.to_string() } else { "-".to_string() } 
-    );
+    ));
   }
+
+  return monthly_receipt;
 }
 
 //======== Helper functions ========//
